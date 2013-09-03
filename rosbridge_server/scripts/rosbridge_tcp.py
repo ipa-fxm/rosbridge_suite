@@ -21,7 +21,7 @@ clients_connected = 0
 # rosbridge_tcp.py:
 port = 9090                             # integer (portnumber)
 host = ""                               # hostname / IP as string
-incoming_buffer = 65536                 # bytes
+incoming_buffer = 1024                 # bytes
 socket_timeout = 10                     # seconds
 retry_startup_delay = 5                 # seconds
 # advertise_service.py:
@@ -104,7 +104,11 @@ class RosbridgeTcpSocket(SocketServer.BaseRequestHandler):
         """
         Callback from rosbridge
         """
-
+        message = message + "\r\n"
+        
+        print "SEND_MESSAGE2"
+        print len(message)
+        
         self.request.send(message)
 
 
@@ -259,6 +263,7 @@ if __name__ == "__main__":
             server = SocketServer.ThreadingTCPServer((host, port), RosbridgeTcpSocket)
 
             loginfo("Rosbridge TCP server started on port %d", port)
+            loginfo("Rosbridge TCP server started on host %s", host)
 
             server.serve_forever()
             loaded = True
