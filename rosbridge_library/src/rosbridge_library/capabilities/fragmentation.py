@@ -77,13 +77,16 @@ class Fragmentation(Capability):
             return [message]
 
         msg_id = message.get("id", None)
+        
+        frag_overhead = 60
+        actual_fragment_size = int(math.floor(0.85*(fragment_size - frag_overhead)))
 
-        expected_duration = int(math.ceil(math.ceil(message_length / float(fragment_size))) * self.protocol.delay_between_messages)
+        expected_duration = int(math.ceil(math.ceil(message_length / float(actual_fragment_size))) * self.protocol.delay_between_messages)
 
-        log_msg = "sending " + str(int(math.ceil(message_length / float(fragment_size)))) + " parts [fragment size: " + str(fragment_size) +"; expected duration: ~" + str(expected_duration) + "s]"
+        log_msg = "sending " + str(int(math.ceil(message_length / float(actual_fragment_size)))) + " parts [actual fragment size: " + str(actual_fragment_size) +"; expected duration: ~" + str(expected_duration) + "s]"
         self.protocol.log("info", log_msg)
 
-        return self._fragment_generator(serialized, fragment_size, mid)
+        return self._fragment_generator(serialized, actual_fragment_size, mid)
     
     def _fragment_generator(self, msg, size, mid):
         """ Returns a generator of fragment messages """
