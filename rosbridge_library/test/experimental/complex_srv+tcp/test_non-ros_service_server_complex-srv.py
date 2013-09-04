@@ -29,7 +29,7 @@ service_name = "nested_srv"                      # service name
 send_fragment_size = 1000
 # delay between sends to rosbridge is not needed anymore, if using my version of protocol (uses buffer to collect data from stream)
 send_fragment_delay = 0.000#1
-receive_fragment_size = 10
+receive_fragment_size = 100
 receive_message_intervall = 0.0
 
 ####################### variables end ##########################################
