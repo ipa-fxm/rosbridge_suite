@@ -79,6 +79,8 @@ class Fragmentation(Capability):
         msg_id = message.get("id", None)
         
         frag_overhead = 60
+        if fragment_size < 100: # deny requests of too small fragment sizes
+            fragment_size = 100
         actual_fragment_size = int(math.floor(0.85*(fragment_size - frag_overhead)))
 
         expected_duration = int(math.ceil(math.ceil(message_length / float(actual_fragment_size))) * self.protocol.delay_between_messages)
