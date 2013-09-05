@@ -25,7 +25,7 @@ incoming_buffer = 1024                 # bytes
 socket_timeout = 10                     # seconds
 retry_startup_delay = 5                 # seconds
 # advertise_service.py:
-service_request_timeout = 600           # seconds
+service_request_timeout = 6000           # seconds
 check_response_delay = 0.01             # seconds
 wait_for_busy_service_provider = 0.01   # seconds
 max_service_requests = 1000000          # requests
