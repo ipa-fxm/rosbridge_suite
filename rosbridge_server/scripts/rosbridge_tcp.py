@@ -32,7 +32,7 @@ max_service_requests = 1000000          # requests
 # defragmentation.py:
 fragment_timeout = 600                  # seconds
 # protocol.py:
-delay_between_messages = 0.01           # seconds
+delay_between_messages = 0.51           # seconds
 max_message_size = None                 # bytes
 
 
@@ -84,6 +84,9 @@ class RosbridgeTcpSocket(SocketServer.BaseRequestHandler):
                   break
               elif len(data.strip()) > 0:
                   #time.sleep(5)
+                  #print "RECEIVE_MESSAGE"
+                  #print data
+                  #print len(data)
                   self.protocol.incoming(data.strip(''))
               else:
                   pass
@@ -107,6 +110,7 @@ class RosbridgeTcpSocket(SocketServer.BaseRequestHandler):
         message = message + "\r\n"
         
         print "SEND_MESSAGE2"
+        print message
         print len(message)
         
         self.request.send(message)
